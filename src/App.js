@@ -40,15 +40,15 @@ const App = () => {
             return;
           } else {
             setArticles((prevState) => [...prevState, ...res.articles]);
-            window.scrollTo({
-              top: document.documentElement.scrollHeight,
-              behavior: "smooth",
-            });
           }
         }
       })
       .catch((error) => setError(error))
-      .finally(() => setIsLoading(false));
+      .finally(() => setIsLoading(false))
+      window.scrollTo({
+        top: document.documentElement.scrollHeight,
+        behavior: "smooth",
+      });;
   }, [page, userQuery]);
 
   const handleFormSubmit = (userQuery) => {
@@ -62,10 +62,10 @@ const App = () => {
   return (
     <div className={s.app}>
       <Searchbar onSubmit={handleFormSubmit} />
+      <ImageGallery props={articles} onClick={toggleModal} />
       {isLoading && (
         <Loader type="Bars" color="orangered" className={s.loader} />
       )}
-      <ImageGallery props={articles} onClick={toggleModal} />
       {articles?.length > 0 && <Button onClick={changePage} />}
       {showModal && <Modal src={src} onClose={toggleModal} />}
       {error && <div>{error}</div>}
