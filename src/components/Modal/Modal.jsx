@@ -4,11 +4,6 @@ import PropTypes from "prop-types";
 import s from "./Modal.module.css";
 
 const Modal = ({ onClose, src }) => {
-  useEffect(() => {
-    window.addEventListener("keydown", handleKeyDown);
-    return () => window.removeEventListener("keydown", handleKeyDown);
-  }, []);
-
   const handleKeyDown = ({ code }) => {
     if (code === "Escape") {
       onClose();
@@ -19,7 +14,12 @@ const Modal = ({ onClose, src }) => {
       onClose();
     }
   };
-
+useEffect(() => {
+    window.addEventListener("keydown", handleKeyDown);
+  return () => window.removeEventListener("keydown", handleKeyDown);
+},
+  [handleKeyDown]);
+  
   return (
     <div className={s.overlay} onClick={handleBackDropClick}>
       <div className={s.modal}>

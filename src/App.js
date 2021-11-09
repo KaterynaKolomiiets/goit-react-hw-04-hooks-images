@@ -59,7 +59,6 @@ const App = () => {
   const changePage = () => {
     setPage((prev) => prev + 1);
   };
-
   return (
     <div className={s.app}>
       <Searchbar onSubmit={handleFormSubmit} />
@@ -69,6 +68,7 @@ const App = () => {
       <ImageGallery props={articles} onClick={toggleModal} />
       {articles?.length > 0 && <Button onClick={changePage} />}
       {showModal && <Modal src={src} onClose={toggleModal} />}
+      {error && <div>{error}</div>}
     </div>
   );
 };
